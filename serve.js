@@ -37,9 +37,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
+var dotenv = require("dotenv");
+dotenv.config();
 // Configuración del servidor Express
 var app = express();
-var PORT = process.env.PORT || 3000;
+var PORT = process.env.PORT;
 app.use(express.json());
 app.post('/receiveData', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, user, frameData, _b, fid_1, hash, neynarUrl, options, response, json, neynarData, reactions, successObject_1, error_1;
@@ -68,7 +70,7 @@ app.post('/receiveData', function (req, res) { return __awaiter(void 0, void 0, 
                 neynarUrl = "https://api.neynar.com/v2/farcaster/reactions/cast?hash=".concat(hash, "&types=recast&limit=25");
                 options = {
                     method: 'GET',
-                    headers: { accept: 'application/json', api_key: '30A5C95E-44B4-4581-B76C-027B4D5C2469' }
+                    headers: { accept: 'application/json', api_key: process.env.API_KEY }
                 };
                 return [4 /*yield*/, fetch(neynarUrl, options)];
             case 1:

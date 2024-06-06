@@ -1,5 +1,7 @@
 import * as express from 'express';
 import { Request, Response } from 'express';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 
 // Interfaces para los datos del usuario de Farcaster
@@ -95,7 +97,7 @@ interface NeynarData {
 
 // Configuración del servidor Express
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.use(express.json());
 
 app.post('/receiveData', async (req: Request<any, any, RequestBody>, res: Response) => {
@@ -127,9 +129,9 @@ app.post('/receiveData', async (req: Request<any, any, RequestBody>, res: Respon
     // Lógica de Neynar (integrada y adaptada)
     const neynarUrl = `https://api.neynar.com/v2/farcaster/reactions/cast?hash=${hash}&types=recast&limit=25`;
     const options = {
-      method: 'GET',
-      headers: { accept: 'application/json', api_key: '30A5C95E-44B4-4581-B76C-027B4D5C2469' }
-    };
+  method: 'GET',
+  headers: { accept: 'application/json', api_key: process.env.API_KEY }
+};
 
     const response = await fetch(neynarUrl, options);
     const json: unknown = await response.json();
