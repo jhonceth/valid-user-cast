@@ -39,7 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 // Configuración del servidor Express
 var app = express();
-var PORT = 3000;
+var PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.post('/receiveData', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var _a, user, frameData, _b, fid_1, hash, neynarUrl, options, response, json, neynarData, reactions, successObject_1, error_1;

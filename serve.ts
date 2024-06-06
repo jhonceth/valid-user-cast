@@ -95,7 +95,7 @@ interface NeynarData {
 
 // Configuración del servidor Express
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.post('/receiveData', async (req: Request<any, any, RequestBody>, res: Response) => {

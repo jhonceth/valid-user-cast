@@ -1,15 +1,20 @@
 {
+  "main": "serve.js",
+  "scripts": {
+    "start": "node serve.js",
+    "build": "tsc"
+  },
   "compilerOptions": {
     "esModuleInterop": true
   },
   "dependencies": {
     "express": "^4.19.2",
-    "node-fetch": "^3.3.2",
-    "typescript": "^5.4.5"
+    "node-fetch": "^3.3.2"
   },
   "devDependencies": {
     "@types/express": "^4.17.21",
     "@types/node": "^20.14.2",
-    "@types/node-fetch": "^2.6.11"
+    "@types/node-fetch": "^2.6.11",
+    "typescript": "^5.4.5"
   }
 }
