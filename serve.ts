@@ -1,8 +1,6 @@
-import * as express from 'express';
-import { Request, Response } from 'express';
+import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 dotenv.config();
-
 
 // Interfaces para los datos del usuario de Farcaster
 interface Profile {
@@ -97,7 +95,7 @@ interface NeynarData {
 
 // Configuración del servidor Express
 const app = express();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 app.use(express.json());
 
 app.post('/receiveData', async (req: Request<any, any, RequestBody>, res: Response) => {
@@ -110,28 +108,28 @@ app.post('/receiveData', async (req: Request<any, any, RequestBody>, res: Respon
       return res.status(400).send('Datos del usuario y frameData son necesarios');
     }
 
-    // Extraer y verificar datos de frameData
-    const { fid, hash } = frameData.castId;
+    // Extraer y verificar datos de frameData y User
+    const { hash } = frameData.castId;
+	const { fid } = user;
 
     if (!fid || !hash) {
       console.error('Datos de fid y hash son necesarios');
       return res.status(400).send('Datos de fid y hash son necesarios');
     }
 
-    // Imprimir datos de frameData y del usuario (opcional)
-    console.log('fid:', fid);
-    console.log('hash:', hash);
-    console.log('Usuario:', user.username);
-    console.log('Nombre de pantalla:', user.displayName);
-    console.log('URL de PFP:', user.pfp.url);
-    console.log('Biografía:', user.profile.bio.text);
+ // Imprimir datos de userid y del usuario (opcional)
+console.log('fid:', fid);
+console.log('hash:', hash);
+console.log('Usuario:', user.username);
+console.log('Nombre de pantalla:', user.displayName);
+  
 
     // Lógica de Neynar (integrada y adaptada)
     const neynarUrl = `https://api.neynar.com/v2/farcaster/reactions/cast?hash=${hash}&types=recast&limit=25`;
     const options = {
-  method: 'GET',
-  headers: { accept: 'application/json', api_key: process.env.API_KEY }
-};
+      method: 'GET',
+      headers: { accept: 'application/json', api_key: process.env.API_KEY || '' }
+    };
 
     const response = await fetch(neynarUrl, options);
     const json: unknown = await response.json();
